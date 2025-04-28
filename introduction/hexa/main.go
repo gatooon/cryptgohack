@@ -15,7 +15,7 @@ func main(){
 
 	byte_array, err := hex.DecodeString(hexa)
 	if err != nil {
-		log.Fatal()
+		log.Fatal(err)
 	}
 
 	fmt.Println(string(byte_array))
