@@ -16,7 +16,7 @@ func main(){
 	bigint_argument := new(big.Int)
 	bigint_argument.SetString(os.Args[1], 10)
 
-	fmt.Println(bigint_argument)
+	fmt.Printf("[o] Input Big Int: '%v'\n", bigint_argument)
 
 	hexa_converted := fmt.Sprintf("%x", bigint_argument)
 
@@ -25,6 +25,8 @@ func main(){
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(hexa_array))
+	fmt.Printf("[o] Big int converted to Hexa: '%v'\n", hexa_array)
+
+	fmt.Printf("[o] Hexa array converted to string: '%v'\n", string(hexa_array))
 
 }
