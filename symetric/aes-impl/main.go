@@ -1,10 +1,26 @@
 package main
 
+import (
+	"fmt"
+	"log"
+	"encoding/hex"
+)
+
 func main() {
+
+	s_box_revers := [256]string{}
+	matrix := [4][4]byte{}
+
+	matrix_reversed, err := SubBytes(matrix, s_box_revers)
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	fmt.Println(Matrix2Byte(matrix_reversed))
 }
 
 func Byte2Matrix(sequence [16]byte) [4][4]byte {
-	var returned_array [4][4]byte
+var returned_array [4][4]byte
 	var converted [4]byte
 
 	n := 0
@@ -47,3 +63,21 @@ func Xor2Matrix(m1 [4][4]byte, m2 [4][4]byte) [4][4]byte {
 
 	return returned_matrix
 }
+
+func SubBytes(matrix [4][4]byte, s_box [256]string) ([4][4]byte, error) {
+	var returned_matrix [4][4]byte
+	for x, line := range(matrix){
+		for y, value := range(line){
+			output_hex := s_box[value]
+      output_byte, err := hex.DecodeString(output_hex)
+    	if err != nil {
+    	    return returned_matrix, err
+    	}
+			returned_matrix[x][y] = output_byte[0]
+		}
+	}
+
+	return returned_matrix, nil
+
+}
+
